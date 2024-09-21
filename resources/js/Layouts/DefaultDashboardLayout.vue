@@ -1,0 +1,72 @@
+<template>
+    <div
+    :class="expanded ? 'grid-cols-[1fr,_6fr]' : 'grid-cols-[100px,_1fr]' "
+    class="min-h-screen bg-gray-100 grid transition-all duration-300 ease-in-out">
+        <div class="h-full p-8">
+            <h1 @click="expandSidebar" class="text-xl font-medium flex cursor-pointer">
+                <span class="font-bold text-sky-600 uppercase">e</span>
+                <span class="inline-block transition-all duration-300 origin-left" :class="expanded ? 'scale-x-100' : 'scale-x-0'">ventzz</span>
+            </h1>
+
+            <Menu
+                :pt="{root: 'border-0 p-0 mt-10', submenuLabel: 'py-2 px-0 font-bold mt-4'}"
+                :model="menuItems"/>
+
+        </div>
+        <div class="h-full p-4">
+            <div class="rounded-lg bg-white dark:bg-zinc-900 p-4 h-full overflow-scroll border shadow-sm"></div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { computed, ref } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+import Menu from 'primevue/menu';
+
+const menuItems = [
+    {
+        label: "General",
+        items: [
+            {
+                label: "Dashboard",
+                icon: "pi pi-home",
+                url: "/"
+            },
+            {
+                label: "Organizations",
+                icon: "pi pi-building",
+                url: "/organizations"
+            },
+            {
+                label: "Events",
+                icon: "pi pi-calendar",
+                url: "/events"
+            }
+        ]
+    },
+    {
+        label: "Account",
+        items: [
+            {
+                label: "Billings",
+                icon: "pi pi-money-bill",
+                url: "/bills"
+            }
+        ]
+    }
+]
+
+let expanded = ref(true);
+
+const expandSidebar = () => {
+    expanded.value = !expanded.value
+}
+
+const page = usePage();
+const user = computed(() => page.props.auth.user);
+</script>
+
+<style lang="scss" scoped>
+
+</style>
