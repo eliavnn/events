@@ -10,11 +10,15 @@
 
             <Menu
                 :pt="{root: 'border-0 p-0 mt-10', submenuLabel: 'py-2 px-0 font-bold mt-4'}"
-                :model="menuItems"/>
+                :model="menuItems"
+
+            />
 
         </div>
         <div class="h-full p-4">
-            <div class="rounded-lg bg-white dark:bg-zinc-900 p-4 h-full overflow-scroll border shadow-sm"></div>
+            <div class="rounded-lg bg-white dark:bg-zinc-900 p-4 h-full overflow-scroll border shadow-sm">
+                <slot />
+            </div>
         </div>
     </div>
 </template>
@@ -24,6 +28,10 @@ import { computed, ref } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import Menu from 'primevue/menu';
 
+const page = usePage();
+const user = computed(() => page.props.auth.user);
+const routes = computed(() => page.props.routes);
+
 const menuItems = [
     {
         label: "General",
@@ -31,7 +39,7 @@ const menuItems = [
             {
                 label: "Dashboard",
                 icon: "pi pi-home",
-                url: "/"
+                url: routes.value.dashboard
             },
             {
                 label: "Organizations",
@@ -63,8 +71,6 @@ const expandSidebar = () => {
     expanded.value = !expanded.value
 }
 
-const page = usePage();
-const user = computed(() => page.props.auth.user);
 </script>
 
 <style lang="scss" scoped>
