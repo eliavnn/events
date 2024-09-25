@@ -36,6 +36,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'routes' => [
                 'dashboard' => route('dashboard'),
+                'organizations' => route('organizations.index'),
             ]
         ];
     }

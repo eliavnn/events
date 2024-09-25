@@ -44,7 +44,7 @@ const menuItems = [
             {
                 label: "Organizations",
                 icon: "pi pi-building",
-                url: "/organizations"
+                url: routes.value.organizations
             },
             {
                 label: "Events",
