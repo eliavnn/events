@@ -13,4 +13,20 @@ class Organization extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $fillable = [
+        'name',
+        'description',
+        'logo',
+        'main_image',
+        'website',
+        'contact_phone',
+        'contact_email',
+        'address',
+        'city',
+        'state',
+        'postal_code',
+        'country',
+        'user_id',
+    ];
 }
