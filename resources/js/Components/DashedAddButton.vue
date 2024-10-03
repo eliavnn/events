@@ -14,7 +14,7 @@
 const props = defineProps({
     width: {
         type: String,
-        default: "w-32"
+        required: false
     },
     url: {
         type: String,
