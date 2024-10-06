@@ -51,4 +51,10 @@ class OrganizationController extends Controller
         Organization::create($validated_org);
         return redirect(route("organizations.index"));
     }
+
+    public function destroy(Organization $organization)
+    {
+        $organization->delete();
+        return redirect(route("organizations.index"));
+    }
 }

@@ -10,6 +10,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/**/**/*.{vue,js,ts,jsx,tsx}',
+        './resources/js/presets/aura/**/*.{vue,js,ts,jsx,tsx}',
     ],
 
     theme: {
