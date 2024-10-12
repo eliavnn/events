@@ -17,6 +17,8 @@
 
         <ContextMenu ref="contextMenu" :model="contextMenuItems" :pt="{root: 'bg-white'}" :ptOptions="{mergeProps: true}" />
 
+        <Link :href="route('organizations.show', organization.id)" class="absolute inset-0" />
+
     </div>
 </template>
 
@@ -24,6 +26,7 @@
     import { ref } from 'vue';
     import { useInitials } from '@/Composables/initials.js';
     import ContextMenu from 'primevue/contextmenu';
+    import { Link } from '@inertiajs/vue3';
 
     const props = defineProps({
         organization: {

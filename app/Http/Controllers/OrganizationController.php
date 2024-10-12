@@ -21,6 +21,13 @@ class OrganizationController extends Controller
         );
     }
 
+    public function show(Organization $organization)
+    {
+        return Inertia::render('Organizations/Show', [
+            'organization' => $organization
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validated_org = $request->validate([

@@ -17,12 +17,11 @@
                 <OrganizationForm :errors="formErrors" @close-dialog="showOrgDialalog = false" @data-submit="handleFormSubmit" />
             </template>
         </Dialog>
-
     </DefaultDashboardLayout>
 </template>
 
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
 import { router } from '@inertiajs/vue3'
 import DefaultDashboardLayout from '@/Layouts/DefaultDashboardLayout.vue';

@@ -11,7 +11,9 @@
 
                 <Menu
                 :pt="{root: 'border-0 p-0 mt-10', submenuLabel: 'py-2 px-0 font-bold mt-4'}"
+                :ptOptions="{mergeProps: true}"
                 :model="menuItems"
+                class="sticky top-10"
 
                 />
             </div>
