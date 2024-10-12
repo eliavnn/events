@@ -17,6 +17,10 @@ class Organization extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 
     protected function mainImagePath(): Attribute
     {
