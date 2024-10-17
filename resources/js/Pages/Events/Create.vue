@@ -1,6 +1,6 @@
 <template>
     <div>
-        <component is="Form"  />
+
     </div>
 </template>
 
@@ -16,13 +16,6 @@ Object.entries(props.blocks).forEach(([key, value]) => {
     console.log(value.type, value)
 })
 
-function resolveComponent(type){
-
-}
-
-onMounted(async () => {
-    await console.log(import("@/Components/Blocks/HeroBlock/Form.vue").then(c => c))
-})
 
 </script>
 
