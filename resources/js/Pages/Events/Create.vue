@@ -1,7 +1,7 @@
 <template>
-    <div class="grid grid-cols-[2fr,_4fr,_2fr] h-screen overflow-hidden">
+    <div class="grid grid-cols-[2fr,_4fr,_0fr] h-screen overflow-hidden">
         <aside class="p-4 flex flex-col gap-4 shadow-lg">
-            <Card v-for="block in props.blocks" @click="handleSelect(block)" class="cursor-pointer">
+            <Card v-for="block in props.blocks" @click="handleSelect(block.type)" class="cursor-pointer">
                 <template #content>
                     {{ block.label }}
                 </template>
@@ -10,13 +10,20 @@
 
         <main class="bg-slate-50 p-4 px-10 overflow-x-hidden overflow-y-auto h-screen relative">
             <div class="flex flex-col gap-5 ">
-                <Card v-for="block in selectedBlocks" class="bg-white">
+                <Card v-for="(id, index) in blockIds" :key="index" class="bg-white">
                     <template #title>
-                        {{ block.label }}
+
+                        {{ getBlockById(id).label }}
                     </template>
                     <template #content>
                         <div class="flex flex-col gap-y-6">
-                            <component  @update:field="handleUpdate($event, block.type, field)" v-for="field in block.fields" :field="field" :is="getComponent(field.type)" />
+                            <component
+                             v-for="(field, key) in getBlockById(id).fields"
+                             :key="key"
+                             :field="field"
+                             :is="getComponent(field.type)"
+                             @update:field="handleUpdate($event, index, key)"
+                            />
                         </div>
                     </template>
                 </Card>
@@ -25,7 +32,7 @@
             <SpeedDial  classs="bg-red-500" style="position: fixed; right: 4rem; top: calc(100% - 50px)" :model="speedDialitems" direction="left" />
         </main>
 
-        <div class="grid place-items-center">
+        <div class="grid place-items-center overflow-hidden">
             <i class="font-bold text-gray-400 text-4xl">Preview goes here</i>
         </div>
 
@@ -34,21 +41,34 @@
 
 <script setup>
 
-import { onMounted, ref } from "vue";
+import { onMounted, ref, reactive } from "vue";
 import Card from "primevue/card";
 import SpeedDial from "primevue/speeddial";
 
 
 import BlockMap from "@/Utils/blockMap"
 
+import { useBlockManager } from '@/compostables/blocks/useBlockManager'
+
+const { addBlock, updateBlockField, getAllBlocks, getBlockById } = useBlockManager()
+
 const props = defineProps({
     blocks: Object
 })
 
-const selectedBlocks = ref([])
-const handleSelect = (block) => {
-    selectedBlocks.value.push(block)
+const blockIds = ref([])
+
+const handleSelect = (blockType) => {
+    const blockSchema = props.blocks[blockType]
+    const newBlockId = addBlock(blockSchema)
+    blockIds.value.push(newBlockId)
 }
+
+const handleUpdate = (value, index, fieldKey) => {
+    const blockId = blockIds.value[index]
+    updateBlockField(blockId, fieldKey, value)
+}
+
 const fieldtypes = new Set()
 
 const getComponent = (type) => {
@@ -56,31 +76,13 @@ const getComponent = (type) => {
 }
 
 
-const handleUpdate = (value, type, field) => {
-    field.value = value
-}
-
-Object.entries(props.blocks).forEach(([key, value]) => {
-
-    Object.values(value.fields).forEach((field) => {
-        fieldtypes.add(field.type)
-
-        if (field.type == "replicator") {
-
-            Object.values(field.block.fields).forEach((field) => {
-                fieldtypes.add(field.type)
-            })
-        }
-    })
-
-})
 
 const speedDialitems = ref([
     {
         label: 'Add',
         icon: 'pi pi-pencil',
         command: () => {
-            console.log(selectedBlocks.value)
+            console.log(getAllBlocks())
         }
     },
     {
@@ -112,6 +114,24 @@ const speedDialitems = ref([
         }
     }
 ])
+
+
+
+//DEBUG
+Object.entries(props.blocks).forEach(([key, value]) => {
+
+    Object.values(value.fields).forEach((field) => {
+        fieldtypes.add(field.type)
+
+        if (field.type == "replicator") {
+
+            Object.values(field.block.fields).forEach((field) => {
+                fieldtypes.add(field.type)
+            })
+        }
+    })
+
+})
 
 console.log("fieldtypes: ",fieldtypes)
 

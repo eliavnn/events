@@ -7,7 +7,8 @@ use App\EventBuilder\Enums\FieldTypess;
 
 class HeroBlock extends Block
 {
-    public static function getSchema(): array
+
+   public static function getSchema(): array
     {
         return [
             'type' => 'hero',

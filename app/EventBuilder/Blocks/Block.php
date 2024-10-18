@@ -9,13 +9,20 @@ abstract class Block
 
     abstract static public function getSchema(): array;
 
-
     protected function rules(): array
     {
         $rules = [];
 
         foreach ($this->getSchema()['fields'] as $type => $field) {
-            $rules[$type] = $field['rules'];
+            if (array_key_exists('rules', $field)) {
+
+                $rules[$type] = $field['rules'];
+
+            } else if ($field['type'] == 'replicator') {
+
+
+
+            }
         }
 
         return $rules;

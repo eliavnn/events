@@ -12,9 +12,9 @@ class ButtonBlock extends Block
             'type' => 'button',
             'label' => 'Button',
             'fields' => [
-                'text' => [
+                'label' => [
                     'type' => FieldTypes::Text,
-                    'label' => 'Text',
+                    'label' => 'Label',
                     'rules' => ['required', 'text'],
                     'value' => null,
                 ],
