@@ -12,11 +12,13 @@ class TextBlock extends Block
     {
         return [
             'type' => 'text',
+            'label' => 'Text',
             'fields' => [
                 'text' => [
                     'type' => FieldTypes::Text,
                     'label' => 'Text',
                     'rules' => ['required', 'text'],
+                    'value' => null,
                 ]
             ]
 

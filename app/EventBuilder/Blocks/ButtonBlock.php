@@ -10,21 +10,25 @@ class ButtonBlock extends Block
     {
         return [
             'type' => 'button',
+            'label' => 'Button',
             'fields' => [
                 'text' => [
                     'type' => FieldTypes::Text,
                     'label' => 'Text',
                     'rules' => ['required', 'text'],
+                    'value' => null,
                 ],
                 'url' => [
                     'type' => FieldTypes::Text,
                     'label' => 'Link',
                     'rules' => ['required_without:anchor', 'url'],
+                    'value' => null,
                 ],
                 'anchor' => [
                     'type' => FieldTypes::Text,
                     'label' => 'Anchor',
                     'rules' => ['required_without:url', 'text'],
+                    'value' => null,
                 ]
             ]
         ];

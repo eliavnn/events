@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Validator;
 abstract class Block
 {
 
-    abstract static function getSchema(): array;
+    abstract static public function getSchema(): array;
+
 
     protected function rules(): array
     {
